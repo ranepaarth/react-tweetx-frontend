@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.right-nav a{
+  @apply transition-transform ease-in-out duration-200
+}
+.right-nav a.active,.right-nav a.active:hover {
+  @apply text-pink-500;
+}
+
+.right-nav a:hover {
+  @apply text-neutral-700;
+}
