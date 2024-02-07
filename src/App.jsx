@@ -1,15 +1,15 @@
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+// import ProtectedRoute from "./components/ProtectedRoute";
 import AppLayout from "./layouts/AppLayout";
+import LoginRegisterLayout from "./layouts/LoginRegisterLayout";
 import ErrorPage from "./pages/ErrorPage";
 import FeedPage from "./pages/FeedPage";
-import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
 import RegisterPage from "./pages/RegisterPage";
-import UsersPage from "./pages/UsersPage";
-import LoginRegisterLayout from "./layouts/LoginRegisterLayout";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import UsersPage from "./pages/UsersPage";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -18,11 +18,7 @@ const App = () => {
       element: <AppLayout />,
       children: [
         {
-          path: "/",
-          element: <HomePage />,
-        },
-        {
-          path: "/feed",
+          index: true,
           element: <FeedPage />,
         },
         {
@@ -41,7 +37,7 @@ const App = () => {
     },
     {
       path: "/user",
-      element:<LoginRegisterLayout />,
+      element: <LoginRegisterLayout />,
       children: [
         {
           index: true,
@@ -53,9 +49,9 @@ const App = () => {
           element: <RegisterPage />,
         },
         {
-          path:'reset',
-          element:<ResetPasswordPage/>
-        }
+          path: "reset",
+          element: <ResetPasswordPage />,
+        },
       ],
     },
   ]);
