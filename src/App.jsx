@@ -1,6 +1,5 @@
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-// import ProtectedRoute from "./components/ProtectedRoute";
 import AppLayout from "./layouts/AppLayout";
 import LoginRegisterLayout from "./layouts/LoginRegisterLayout";
 import ErrorPage from "./pages/ErrorPage";
