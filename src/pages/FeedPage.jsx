@@ -1,7 +1,11 @@
-import React from "react";
+import React from 'react'
 
 const FeedPage = () => {
-  return <div>Feed</div>;
-};
+  return (
+    <div>
+      Feed
+    </div>
+  )
+}
 
-export default FeedPage;
+export default FeedPage
