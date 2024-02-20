@@ -1,21 +1,23 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import LogoText from "./LogoText";
+import LogoutBtn from "./LogoutBtn";
 
 const Navbar = () => {
   return (
-    <nav className="py-2 bg-neutral-200 px-[5%] md:px-[10%] flex items-center justify-between">
+    <nav className="py-2 shadow-md px-[5%] md:px-[10%] md:flex md:items-center md:justify-between hidden bg-transparent w-full">
       <LogoText />
-      <div className="flex items-center gap-x-6 font-medium right-nav">
-        <NavLink className="text-neutral-500 " to="/feed">
+      <div className="flex items-center gap-x-6 font-medium desktop-nav">
+        <NavLink className="" to="/">
           <span>Feed</span>
         </NavLink>
-        <NavLink className="text-neutral-500 " to="/users">
+        <NavLink className=" " to="/users">
           <span>Users</span>
         </NavLink>
-        <NavLink className="text-neutral-500 " to="/profile">
+        <NavLink className=" " to="/profile">
           <span>Profile</span>
         </NavLink>
+        <LogoutBtn />
       </div>
     </nav>
   );
