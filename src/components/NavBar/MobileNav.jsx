@@ -1,10 +1,14 @@
 import React from "react";
+import { BiSolidMessageSquareDetail } from "react-icons/bi";
 import { FaUser } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { getUserData } from "../../slice/usersSlice";
 import LogoutBtn from "./LogoutBtn";
-import { BiSolidMessageSquareDetail } from "react-icons/bi";
+import UserAvatar from "../shared/UserAccount/UserAvatar";
 const MobileNav = () => {
+  const currUser = useSelector(getUserData);
   const navLinks = [
     {
       id: 1,
@@ -19,7 +23,7 @@ const MobileNav = () => {
     {
       id: 3,
       path: "/profile",
-      icon: <FaUser />,
+      icon: <UserAvatar className={"w-9 outline-offset-0 rounded-full border p-[0.1rem]  grayscale bg-neutral-200"} userName={currUser?.name}/>,
     },
   ];
   return (
