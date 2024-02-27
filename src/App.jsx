@@ -1,14 +1,17 @@
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import AppLayout from "./layouts/AppLayout";
-import LoginRegisterLayout from "./layouts/LoginRegisterLayout";
-import ErrorPage from "./pages/ErrorPage";
-import FeedPage from "./pages/FeedPage";
-import LoginPage from "./pages/LoginPage";
-import ProfilePage from "./pages/ProfilePage";
-import RegisterPage from "./pages/RegisterPage";
-import ResetPasswordPage from "./pages/ResetPasswordPage";
-import UsersPage from "./pages/UsersPage";
+const LoginPage = React.lazy(() => import("./pages/LoginPage.jsx"));
+const ProfilePage = React.lazy(() => import("./pages/ProfilePage.jsx"));
+const RegisterPage = React.lazy(() => import("./pages/RegisterPage.jsx"));
+const ResetPasswordPage = React.lazy(() =>
+  import("./pages/ResetPasswordPage.jsx")
+);
+const UsersPage = React.lazy(() => import("./pages/UsersPage.jsx"));
+const ErrorPage = React.lazy(() => import("./pages/ErrorPage.jsx"));
+const FeedPage = React.lazy(() => import("./pages/FeedPage.jsx"));
+
+import AppLayout from "./layouts/AppLayout.jsx";
+import LoginRegisterLayout from "./layouts/LoginRegisterLayout.jsx";
 
 const App = () => {
   const router = createBrowserRouter([
