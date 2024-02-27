@@ -9,10 +9,10 @@ const ResetPasswordPage = React.lazy(() =>
 const UsersPage = React.lazy(() => import("./pages/UsersPage.jsx"));
 const ErrorPage = React.lazy(() => import("./pages/ErrorPage.jsx"));
 const FeedPage = React.lazy(() => import("./pages/FeedPage.jsx"));
+const SingleUserPage = React.lazy(() => import("./pages/SingleUserPage.jsx"));
 
 import AppLayout from "./layouts/AppLayout.jsx";
 import LoginRegisterLayout from "./layouts/LoginRegisterLayout.jsx";
-import SingleUserProfile from "./components/SingleUserPage/SingleUserProfile.jsx";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -34,7 +34,7 @@ const App = () => {
         },
         {
           path: "/user/:name",
-          element: <SingleUserProfile />,
+          element: <SingleUserPage />,
         },
         {
           path: "*",

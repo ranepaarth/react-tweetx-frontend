@@ -5,17 +5,17 @@ import { useParams } from "react-router-dom";
 import {
   useGetSingleUserProfileQuery,
   useGetSingleUserQuery,
-} from "../../slice/authApiSlice";
-import { getUserData } from "../../slice/usersSlice";
-import ProfileSection from "../ProfilePage/ProfileSection/ProfileSection";
-import UserAvatar from "../shared/UserAccount/UserAvatar";
-import UserButton from "../shared/UserAccount/UserButton";
-import UserInfo from "../shared/UserAccount/UserInfo";
+} from "../slice/authApiSlice";
+import { getUserData } from "../slice/usersSlice";
+import ProfileSection from "../components/ProfilePage/ProfileSection/ProfileSection";
+import UserAvatar from "../components/shared/UserAccount/UserAvatar";
+import UserButton from "../components/shared/UserAccount/UserButton";
+import UserInfo from "../components/shared/UserAccount/UserInfo";
 
 const SingleUserPage = () => {
   const currUser = useSelector(getUserData);
   const { name: userName } = useParams();
-  console.log(userName);
+  // console.log(userName);
   const { data: user } = useGetSingleUserProfileQuery(userName);
   const { data: currentUser } = useGetSingleUserQuery(currUser?.id);
   // console.log({ user, file: "SingleUserProfile" });
