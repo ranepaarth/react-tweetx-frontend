@@ -1,12 +1,12 @@
 import React from "react";
 import { BiSolidMessageSquareDetail } from "react-icons/bi";
-import { FaUser } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { getUserData } from "../../slice/usersSlice";
 import LogoutBtn from "./LogoutBtn";
 import UserAvatar from "../shared/UserAccount/UserAvatar";
+
 const MobileNav = () => {
   const currUser = useSelector(getUserData);
   const navLinks = [
