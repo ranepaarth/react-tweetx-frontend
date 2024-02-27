@@ -12,6 +12,7 @@ const FeedPage = React.lazy(() => import("./pages/FeedPage.jsx"));
 
 import AppLayout from "./layouts/AppLayout.jsx";
 import LoginRegisterLayout from "./layouts/LoginRegisterLayout.jsx";
+import SingleUserProfile from "./components/SingleUserPage/SingleUserProfile.jsx";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -30,6 +31,10 @@ const App = () => {
         {
           path: "/profile",
           element: <ProfilePage />,
+        },
+        {
+          path: "/user/:name",
+          element: <SingleUserProfile />,
         },
         {
           path: "*",
