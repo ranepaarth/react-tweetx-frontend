@@ -50,6 +50,14 @@ export const authApi = createApi({
       }),
       providesTags: ["UserProfile"],
     }),
+    getSearchUser: builder.query({
+      query: (name) => ({
+        url: `/users/search/${name}`,
+        method: "GET",
+        credentials: "include",
+      }),
+      providesTags: ["SearchUsers"],
+    }),
     followUser: builder.mutation({
       query: ({ userId, currUserId }) => ({
         url: `/timeline/follow/${userId}`,
@@ -116,7 +124,7 @@ export const authApi = createApi({
           "Content-type": "application/json",
         },
       }),
-      invalidatesTags:["User"]
+      invalidatesTags: ["User"],
     }),
     createTweet: builder.mutation({
       query: (data) => ({
@@ -159,6 +167,7 @@ export const {
   useGetSingleUserQuery,
   useGetCurrUserTweetsQuery,
   useGetSingleUserProfileQuery,
+  useGetSearchUserQuery,
   useLoginUserMutation,
   useLogoutUserMutation,
   useRegisterUserMutation,

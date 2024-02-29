@@ -1,36 +1,52 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
 import UserLoadingSkeleton from "../components/Loading/UserLoadingSkeleton";
 import LogoText from "../components/NavBar/LogoText";
 import NoUsers from "../components/UsersPage/NoUsers";
+import SearchInput from "../components/UsersPage/SearchInput";
 import SingleUser from "../components/UsersPage/SingleUser";
-import { useGetAllUsersQuery } from "../slice/authApiSlice";
-import { getUserData } from "../slice/usersSlice";
+import UserNotFound from "../components/UsersPage/UserNotFound";
+import {
+  useGetAllUsersQuery,
+  useGetSearchUserQuery,
+} from "../slice/authApiSlice";
 
 const UsersPage = () => {
-  const currUser = useSelector(getUserData);
+  const [searchTerm, setSearchTerm] = useState("");
   const { data: allUsers, isLoading } = useGetAllUsersQuery(undefined, {
     refetchOnMountOrArgChange: false,
   });
+  const { data: searchUserResult, isLoading: isSearching } =
+    useGetSearchUserQuery(searchTerm, {
+      skip: searchTerm === "",
+    });
+  // console.log("searchUserResult");
+
+  const handleSearch = (searchTerm) => {
+    setSearchTerm(searchTerm);
+    // console.log("search term:", searchTerm);
+  };
 
   let content;
-  if (isLoading) content = <UserLoadingSkeleton />;
+  if (isLoading && searchTerm === "") content = <UserLoadingSkeleton />;
+
+  if (searchTerm && isSearching) content = <UserLoadingSkeleton />;
 
   if (!isLoading && allUsers?.length === 0) {
     content = allUsers?.length === 0 && <NoUsers />;
   }
 
   if (!isLoading && allUsers?.length > 0) {
-    content = allUsers?.map((user, i) => (
-      <React.Fragment key={user?._id}>
-        {currUser?.id === user?._id ? (
-          ""
-        ) : (
-          <SingleUser key={user?._id} userId={user._id} user={user} />
-        )}
-      </React.Fragment>
-    ));
+    content =
+      searchTerm === ""
+        ? allUsers?.map((user, i) => (
+            <SingleUser key={user?._id} userId={user._id} />
+          ))
+        : searchUserResult?.map((user, i) => (
+            <SingleUser key={user?._id} userId={user._id} />
+          ));
   }
+
+  if (searchTerm && searchUserResult?.length === 0) content = <UserNotFound />;
 
   return (
     <>
@@ -38,6 +54,7 @@ const UsersPage = () => {
         <span className="md:hidden block">
           <LogoText />
         </span>
+        <SearchInput onSearch={handleSearch} />
       </div>
       <section className="flex flex-col items-center mt-5">{content}</section>
     </>
