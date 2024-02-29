@@ -15,8 +15,8 @@ const UserButton = ({ userId, isFollowing }) => {
   const handleClick = async () => {
     try {
       const data = isFollowing
-        ? await unFollowUser({ userId, currUserId }).unwrap()
-        : await followUser({ userId, currUserId }).unwrap();
+        ? await unFollowUser(userId).unwrap()
+        : await followUser(userId).unwrap();
     } catch (error) {
       console.log(error);
     }

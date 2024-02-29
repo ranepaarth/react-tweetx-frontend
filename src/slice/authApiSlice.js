@@ -19,24 +19,24 @@ export const authApi = createApi({
       providesTags: ["Users"],
     }),
     getAllTweets: builder.query({
-      query: (userId) => ({
-        url: `/tweets/timeline/all/${userId}`,
+      query: () => ({
+        url: `/tweets/timeline/all`,
         method: "GET",
         credentials: "include",
       }),
       providesTags: ["Tweets"],
     }),
     getCurrUserTweets: builder.query({
-      query: (userId) => ({
-        url: `/tweets/user/${userId}`,
+      query: () => ({
+        url: `/tweets/user`,
         method: "GET",
         credentials: "include",
       }),
       providesTags: ["Tweets"],
     }),
     getSingleUser: builder.query({
-      query: (followingId) => ({
-        url: `/users/${followingId}`,
+      query: (userId) => ({
+        url: `/users/${userId}`,
         method: "GET",
         credentials: "include",
       }),
@@ -59,26 +59,24 @@ export const authApi = createApi({
       providesTags: ["SearchUsers"],
     }),
     followUser: builder.mutation({
-      query: ({ userId, currUserId }) => ({
+      query: (userId) => ({
         url: `/timeline/follow/${userId}`,
         method: "PUT",
         headers: {
           "Content-type": "application/json",
         },
-        body: { userId: currUserId },
         credentials: "include",
       }),
       invalidatesTags: ["Tweets", "User", "UserProfile"],
     }),
     unFollowUser: builder.mutation({
-      query: ({ userId, currUserId }) => {
+      query: (userId) => {
         return {
           url: `/timeline/unfollow/${userId}`,
           method: "PUT",
           headers: {
             "Content-type": "application/json",
           },
-          body: { userId: currUserId },
           credentials: "include",
         };
       },
