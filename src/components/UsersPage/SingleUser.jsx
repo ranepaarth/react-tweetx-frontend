@@ -14,11 +14,12 @@ const SingleUser = ({ userId }) => {
   // console.log(singleUser);
   return (
     <article
-      className="w-full flex items-center justify-between px-3 py-6 cursor-default transition-transform ease-in-out duration-200"
-      to={`/user/${userId}`}
+      className={`${
+        currUser?.id === userId ? "hidden" : "block"
+      } w-full flex items-center justify-between px-3 py-6 cursor-default transition-transform ease-in-out duration-200`}
     >
       <div className="flex items-start gap-4 md:gap-8">
-        <div className="w-[4.5rem]">
+        <div className="w-[4.5rem] aspect-square rounded-full bg-neutral-200 border border-neutral-400">
           <UserAvatar className={"avatar"} userName={singleUser?.name} />
         </div>
         <div className="flex flex-col gap-2">
