@@ -27,8 +27,8 @@ export const authApi = createApi({
       providesTags: ["Tweets"],
     }),
     getCurrUserTweets: builder.query({
-      query: () => ({
-        url: `/tweets/user`,
+      query: (userId) => ({
+        url: `/tweets/user/${userId}`,
         method: "GET",
         credentials: "include",
       }),
@@ -59,9 +59,10 @@ export const authApi = createApi({
       providesTags: ["SearchUsers"],
     }),
     followUser: builder.mutation({
-      query: (userId) => ({
+      query: ({userId,currUserId}) => ({
         url: `/timeline/follow/${userId}`,
         method: "PUT",
+        body:{currUserId},
         headers: {
           "Content-type": "application/json",
         },
@@ -70,10 +71,11 @@ export const authApi = createApi({
       invalidatesTags: ["Tweets", "User", "UserProfile"],
     }),
     unFollowUser: builder.mutation({
-      query: (userId) => {
+      query: ({userId,currUserId}) => {
         return {
           url: `/timeline/unfollow/${userId}`,
           method: "PUT",
+          body:{currUserId},
           headers: {
             "Content-type": "application/json",
           },
@@ -156,6 +158,18 @@ export const authApi = createApi({
       }),
       invalidatesTags: ["Tweets", "User"],
     }),
+    tweetLikeHandler: builder.mutation({
+      query: ({ tweetId, userId }) => ({
+        url: `/tweets/tweet/likehandler/${tweetId}`,
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: {userId},
+        credentials: "include",
+      }),
+      invalidatesTags: ["Tweets"],
+    }),
   }),
 });
 
@@ -175,5 +189,6 @@ export const {
   useUnFollowUserMutation,
   useUpdateTweetMutation,
   useDeleteTweetMutation,
+  useTweetLikeHandlerMutation,
 } = authApi;
 export default authApi.reducer;
