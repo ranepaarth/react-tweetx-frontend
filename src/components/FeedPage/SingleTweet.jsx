@@ -1,11 +1,13 @@
 import React from "react";
 import { useGetSingleUserQuery } from "../../slice/authApiSlice";
+import { tweetCreatedAt } from "../../utils/utils";
 import UserAvatar from "../shared/UserAccount/UserAvatar";
 import UserName from "../shared/UserAccount/UserName";
 import TweetContent from "./TweetContent";
 import TweetDeleteBtn from "./TweetDeleteBtn";
 import TweetEditBtn from "./TweetEditBtn";
-import { tweetCreatedAt } from "../../utils/utils";
+import TweetLikeBtn from "./TweetLikeBtn";
+import TweetLikes from "./TweetLikes";
 
 const SingleTweet = ({ tweet, currUserId }) => {
   const tweetCreated = tweetCreatedAt(tweet?.createdAt);
@@ -28,6 +30,14 @@ const SingleTweet = ({ tweet, currUserId }) => {
               }
             />
             <TweetContent content={tweet?.content} />
+
+            <div className="flex flex-col">
+              <div className="flex items-center justify-between">
+                <TweetLikeBtn tweetId={tweet?._id} likedBy={tweet?.likedBy} />
+              </div>
+              <TweetLikes likedBy={tweet?.likedBy} />
+            </div>
+
           </div>
         </div>
       </div>
