@@ -1,20 +1,17 @@
 import React from "react";
-import UserLoadingSkeleton from "../../Loading/UserLoadingSkeleton";
 import SingleUser from "../../UsersPage/SingleUser";
-import NoFollowers from "./NoFollowers";
-
-const Followers = ({ followers, isLoading }) => {
+import NoFollowers from "../ProfileSection/NoFollowers";
+const Followers = ({ followers }) => {
   let content;
-
-  if (followers?.length === 0) content = <NoFollowers />;
-  if (isLoading) content = <UserLoadingSkeleton />;
-  if (followers?.length > 0) {
-    content = followers?.map((userId) => (
-      <SingleUser userId={userId} key={userId} />
+  if (followers.length === 0) {
+    content = <NoFollowers />;
+  }
+  if (followers.length > 0) {
+    content = followers.map((user) => (
+      <SingleUser userId={user._id} key={user._id} />
     ));
   }
-
-  return <div className="w-full flex flex-col items-start">{content}</div>;
+  return <section className="profile-section-tab-content">{content}</section>;
 };
 
 export default Followers;

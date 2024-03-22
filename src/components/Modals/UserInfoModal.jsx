@@ -2,16 +2,21 @@ import { format } from "date-fns";
 import React from "react";
 import { LuCalendarDays } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
-import { getShowUserModal, getUserData, toggleShowUserModal } from "../../slice/usersSlice";
-import UserAvatar from "../shared/UserAccount/UserAvatar";
-import UserName from "../shared/UserAccount/UserName";
+import {
+  getCurrentUser,
+  getShowUserModal,
+  toggleShowUserModal,
+} from "../../features/slice/usersSlice";
+import UserAvatar from "../User/UserAvatar";
+import UserName from "../User/UserName";
 import Modal from "./Modal";
 
 const UserInfoModal = () => {
-  const currUser = useSelector(getUserData);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const showUserModal = useSelector(getShowUserModal);
-  const dateJoined = format(new Date(currUser?.createdAt), "LLLL yyyy");
+  const currentUser = useSelector(getCurrentUser);
+  console.log({ showUserModal });
+  const dateJoined = format(new Date(currentUser?.createdAt), "LLLL yyyy");
 
   return (
     <Modal showModal={showUserModal} isTweet={false}>
@@ -20,9 +25,12 @@ const UserInfoModal = () => {
           About your account
         </div>
         <div className="w-24 py-4 flex flex-col items-center gap-4">
-          <UserAvatar userName={currUser?.name} className={"avatar"} />
+          <UserAvatar
+            userName={currentUser?.userName || "paarth"}
+            className={"avatar"}
+          />
           <UserName
-            userName={currUser?.name}
+            userName={currentUser?.userName || "paarth"}
             className={"font-bold text-neutral-700 text-xl"}
           />
         </div>
@@ -36,7 +44,12 @@ const UserInfoModal = () => {
           </span>
         </div>
         <div className="w-full border-t text-center">
-          <button onClick={()=>dispatch(toggleShowUserModal())} className="py-4 w-full">Close</button>
+          <button
+            onClick={() => dispatch(toggleShowUserModal())}
+            className="py-4 w-full"
+          >
+            Close
+          </button>
         </div>
       </article>
     </Modal>
