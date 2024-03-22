@@ -14,7 +14,7 @@ const FormPasswordInput = ({ register }) => {
         type={showPwd ? "text" : "password"}
         register={register}
       />
-      <button onClick={toggleShowPwd} className="outline-none" type="button">
+      <button onClick={toggleShowPwd} className="outline-none text-neutral-400 hover:text-neutral-600 focus-within:text-neutral-600 transition-colors ease-in-out duration-200" type="button">
         {showPwd ? <IoEyeOffOutline /> : <IoEyeOutline />}
       </button>
     </>
