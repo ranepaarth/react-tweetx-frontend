@@ -1,8 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { toggleShowModal, toggleShowUserModal } from "../../slice/usersSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  toggleShowModal,
+} from "../../features/slice/tweetsSlice";
+import { toggleShowUserModal } from "../../features/slice/usersSlice";
 
-const Modal = ({ children, showModal, isTweet }) => {
+const Modal = ({ showModal, children, isTweet }) => {
   const dispatch = useDispatch();
   const modalRef = useRef(null);
   const handleOverlayClick = (e) => {
