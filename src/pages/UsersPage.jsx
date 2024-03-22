@@ -1,62 +1,69 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import UserLoadingSkeleton from "../components/Loading/UserLoadingSkeleton";
 import LogoText from "../components/NavBar/LogoText";
 import NoUsers from "../components/UsersPage/NoUsers";
 import SearchInput from "../components/UsersPage/SearchInput";
 import SingleUser from "../components/UsersPage/SingleUser";
-import UserNotFound from "../components/UsersPage/UserNotFound";
-import {
-  useGetAllUsersQuery,
-  useGetSearchUserQuery,
-} from "../slice/authApiSlice";
+import { useGetAllUsersQuery } from "../features/api/usersApiSlice";
+import { getCurrentUser } from "../features/slice/usersSlice";
 
 const UsersPage = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const { data: allUsers, isLoading } = useGetAllUsersQuery(undefined, {
-    refetchOnMountOrArgChange: false,
+  // changing the first query to undefined resolved the error for the createSelector usersResult in the usersApiSlice
+  const {
+    data: users,
+    error,
+    isError,
+    isLoading,
+    isSuccess,
+  } = useGetAllUsersQuery(null, {
+    pollingInterval: 60000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
   });
-  const { data: searchUserResult, isLoading: isSearching } =
-    useGetSearchUserQuery(searchTerm, {
-      skip: searchTerm === "",
-    });
-  // console.log("searchUserResult");
 
-  const handleSearch = (searchTerm) => {
-    setSearchTerm(searchTerm);
-    // console.log("search term:", searchTerm);
-  };
+  const currentUser = useSelector(getCurrentUser);
+
+  console.log({ users });
 
   let content;
-  if (isLoading && searchTerm === "") content = <UserLoadingSkeleton />;
+  if (isLoading) content = <UserLoadingSkeleton />;
 
-  if (searchTerm && isSearching) content = <UserLoadingSkeleton />;
+  if (isSuccess) {
+    const { ids } = users;
 
-  if (!isLoading && allUsers?.length === 0) {
-    content = allUsers?.length === 0 && <NoUsers />;
+    content = ids.map((userId) => {
+      if (currentUser?._id === userId) return;
+      else return <SingleUser userId={userId} key={userId} />;
+    });
+  }
+  if (isError) {
+    console.log({ error });
   }
 
-  if (!isLoading && allUsers?.length > 0) {
-    content =
-      searchTerm === ""
-        ? allUsers?.map((user, i) => (
-            <SingleUser key={user?._id} userId={user._id} />
-          ))
-        : searchUserResult?.map((user, i) => (
-            <SingleUser key={user?._id} userId={user._id} />
-          ));
+  if (!isLoading && users?.length === 0) {
+    content = users?.length === 0 && <NoUsers />;
   }
 
-  if (searchTerm && searchUserResult?.length === 0) content = <UserNotFound />;
+  if (!isLoading && users?.length > 0) {
+    content = users?.map((user, i) => {
+      return <SingleUser key={user?._id} userId={user._id} />;
+    });
+  }
 
   return (
     <>
-      <div className="flex items-center w-full justify-between gap-10">
+      <div className="flex items-center w-full justify-between gap-10 ">
         <span className="md:hidden block">
           <LogoText />
         </span>
-        <SearchInput onSearch={handleSearch} />
+        <div className="w-full md:hidden">
+          <SearchInput />
+        </div>
       </div>
-      <section className="flex flex-col items-center mt-5">{content}</section>
+      <section className="flex flex-col items-center  w-full">
+        {content}
+      </section>
     </>
   );
 };
