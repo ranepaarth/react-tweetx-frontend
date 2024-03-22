@@ -1,18 +1,22 @@
-import React from 'react'
-import { FaUserXmark } from 'react-icons/fa6'
+import React from "react";
+import { FaUser } from "react-icons/fa";
+import UserName from "../User/UserName";
 
-const UserNotFound = () => {
+const UserNotFound = ({ userName }) => {
   return (
-    <div className="flex items-center flex-col my-8">
-        <span className="text-neutral-400 py-4">
-          <FaUserXmark className="text-8xl" />
+    <div className="flex flex-col items-start gap-6 py-2 w-full">
+      <div className="flex items-start gap-4">
+        <span className="bg-neutral-200 aspect-square p-2 rounded-full border">
+          <FaUser className="text-6xl rounded-full text-neutral-400" />
         </span>
-        <p className="text-neutral-700 font-bold text-2xl">No users found</p>
-        <p className="font-medium text-neutral-400">
-          We could&apos;nt find what you&apos;r looking for
-        </p>
+        <UserName userName={userName} className={"profile-userName"} />
       </div>
-  )
-}
+      <p className="text-neutral-800 font-extrabold text-4xl">
+        This account doesn&apos;t exist
+      </p>
+      <p className="text-sm text-neutral-400">Try searching for another</p>
+    </div>
+  );
+};
 
-export default UserNotFound
+export default UserNotFound;
