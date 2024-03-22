@@ -5,28 +5,27 @@ import {
   setTweetToUpdate,
   toggleIsTweetUpdating,
   toggleShowModal,
-} from "../../slice/usersSlice";
+} from "../../features/slice/tweetsSlice";
 
 const TweetEditBtn = ({ tweet, currUserId }) => {
   const dispatch = useDispatch();
   const toggleTweetUpdatingState = () => {
     dispatch(toggleIsTweetUpdating(true));
-    dispatch(toggleShowModal(true));
+    dispatch(toggleShowModal());
     dispatch(setTweetToUpdate(tweet));
   };
 
   return (
     <span>
-      {tweet?.userId === currUserId && (
+      {tweet?.createdBy._id === currUserId && (
         <button
-          className="p-1 rounded-full text-neutral-600 hover:text-white hover:bg-pink-500 transition-colors ease-in-out duration-200"
+          className="p-2 rounded-full text-neutral-400  hover:bg-blue-100 hover:text-blue-600 transition-colors ease-in-out duration-200"
           type="button"
           onClick={toggleTweetUpdatingState}
         >
           <AiOutlineEdit />
         </button>
       )}
-      
     </span>
   );
 };

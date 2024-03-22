@@ -3,7 +3,7 @@ import React from "react";
 const TweetContent = ({ content }) => {
   // console.log({content})
   return (
-    <div className="text-sm text-neutral-500 py-1 flex flex-grow w-[80%] text-justify">
+    <div className="text-sm md:text-base text-neutral-700 py-1 flex flex-grow font-normal text- w-11/12">
       <p className="line-clamp-">{content}</p>
     </div>
   );
