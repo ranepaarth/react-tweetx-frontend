@@ -8,13 +8,117 @@
   font-weight: 400;
 }
 
-.right-nav a{
-  @apply transition-transform ease-in-out duration-200
+.nav-btn a {
+  @apply text-neutral-400 transition-transform ease-in-out duration-200;
 }
-.right-nav a.active,.right-nav a.active:hover {
+.desktop-nav {
+  @apply text-neutral-400;
+}
+
+.desktop-nav a.active,
+.desktop-nav a.active:hover {
   @apply text-pink-500;
 }
 
-.right-nav a:hover {
+.desktop-nav a:hover {
   @apply text-neutral-700;
+}
+
+.nav-btn a.active,
+.nav-btn a.active:hover {
+  @apply text-pink-500;
+}
+
+.nav-btn a:hover {
+  @apply text-neutral-700;
+}
+
+.avatar {
+  @apply bg-neutral-200 p-1 rounded-full grayscale;
+}
+
+.userName {
+  @apply text-sm font-normal text-neutral-400 hover:text-blue-500 transition-colors ease-in-out duration-200 cursor-pointer;
+}
+
+.profile-userName {
+  @apply text-lg font-medium text-neutral-400 hover:text-blue-400 transition-colors ease-in-out duration-200;
+}
+
+.user-fullName {
+  @apply text-sm font-bold text-neutral-600 cursor-default;
+}
+
+.profile-fullName {
+  @apply font-extrabold text-2xl text-neutral-800;
+}
+
+.user-button {
+  @apply px-3 py-[0.37rem] rounded-lg outline-none shadow-md hover:rounded-3xl duration-200 bg-pink-500 text-white font-medium flex items-center gap-x-1 md:text-sm text-xs;
+}
+
+.user-info {
+  @apply font-medium text-neutral-600;
+}
+
+.profile-userInfo {
+  @apply font-bold text-neutral-800 text-xl;
+}
+
+.profile-section-tab-content {
+  @apply w-full flex flex-col items-start;
+}
+
+.loader {
+  width: 15px;
+  height: 15px;
+  border: 2px solid white;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 3px solid rgba(236, 72, 153);
+  border-right: 3px solid transparent;
+  box-sizing: border-box;
+  animation: wait 1s linear infinite;
+}
+
+@keyframes wait {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(236, 72, 153, 0.4);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(236, 72, 153, 0.6);
 }
