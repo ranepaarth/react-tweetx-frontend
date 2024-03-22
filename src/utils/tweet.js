@@ -7,10 +7,3 @@ export const formatTweetDate = (createdAt, updatedAt) => {
     return format(new Date(createdAt || Date.now()), "do LLLL yyyy");
   }
 };
-
-export const tweetCreatedAt = (createdAt) => {
-  const newCreatedAt = formatDistance(new Date(createdAt), new Date(), {
-    includeSeconds: false,
-  });
-  return newCreatedAt;
-};
