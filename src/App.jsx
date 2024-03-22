@@ -1,5 +1,9 @@
 import React from "react";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import PersistLogin from "./components/PersistLogin.jsx";
+import PrefetchComponent from "./components/PrefetchComponent.jsx";
+import AppLayout from "./layouts/AppLayout.jsx";
+import AuthLayout from "./layouts/AuthLayout.jsx";
 const LoginPage = React.lazy(() => import("./pages/LoginPage.jsx"));
 const ProfilePage = React.lazy(() => import("./pages/ProfilePage.jsx"));
 const RegisterPage = React.lazy(() => import("./pages/RegisterPage.jsx"));
@@ -10,59 +14,31 @@ const UsersPage = React.lazy(() => import("./pages/UsersPage.jsx"));
 const ErrorPage = React.lazy(() => import("./pages/ErrorPage.jsx"));
 const FeedPage = React.lazy(() => import("./pages/FeedPage.jsx"));
 const SingleUserPage = React.lazy(() => import("./pages/SingleUserPage.jsx"));
-
-import AppLayout from "./layouts/AppLayout.jsx";
-import LoginRegisterLayout from "./layouts/LoginRegisterLayout.jsx";
+const SavedTweetsPage = React.lazy(() => import("./pages/SavedTweetsPage.jsx"));
 
 const App = () => {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <AppLayout />,
-      children: [
-        {
-          index: true,
-          element: <FeedPage />,
-        },
-        {
-          path: "/users",
-          element: <UsersPage />,
-        },
-        {
-          path: "/profile",
-          element: <ProfilePage />,
-        },
-        {
-          path: "/user/:name",
-          element: <SingleUserPage />,
-        },
-        {
-          path: "*",
-          element: <ErrorPage />,
-        },
-      ],
-    },
-    {
-      path: "/user",
-      element: <LoginRegisterLayout />,
-      children: [
-        {
-          index: true,
-          path: "login",
-          element: <LoginPage />,
-        },
-        {
-          path: "register",
-          element: <RegisterPage />,
-        },
-        {
-          path: "reset",
-          element: <ResetPasswordPage />,
-        },
-      ],
-    },
-  ]);
-  return <RouterProvider router={router} />;
+  return (
+    <Routes>
+      <Route path="*" element={<ErrorPage />} />
+      <Route element={<AuthLayout />}>
+        <Route path="/auth/login" index element={<LoginPage />} />
+        <Route path="/auth/register" element={<RegisterPage />} />
+        <Route path="/auth/reset" element={<ResetPasswordPage />} />
+      </Route>
+
+      <Route element={<PersistLogin />}>
+        <Route element={<PrefetchComponent />}>
+          <Route path="/" element={<AppLayout />} errorElement={<ErrorPage />}>
+            <Route index element={<ProfilePage />} />
+            <Route path="users" element={<UsersPage />} />
+            <Route path=":name" element={<SingleUserPage />} />
+            <Route path="feed" element={<FeedPage />} />
+            <Route path="saved" element={<SavedTweetsPage />} />
+          </Route>
+        </Route>
+      </Route>
+    </Routes>
+  );
 };
 
 export default App;
