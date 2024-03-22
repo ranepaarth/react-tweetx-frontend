@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const FormNavigationButton = ({ text, path }) => {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(`/user/${path}`);
+    navigate(`/auth/${path}`);
   };
   return (
     <div className="flex w-full items-start">
