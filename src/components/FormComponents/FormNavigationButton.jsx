@@ -9,7 +9,7 @@ const FormNavigationButton = ({ text, path }) => {
   return (
     <div className="flex w-full items-start">
       <button
-        className="w-44 rounded-md border border-black font-medium p-2"
+        className="w-44 rounded-md border border-black font-medium p-2 hover:shadow-lg transition-shadow ease-in-out duration-200"
         onClick={handleClick}
       >
         {text}
