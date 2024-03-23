@@ -33,7 +33,7 @@ const ProfilePage = () => {
       {showUserModal ? <CurrUserInfo /> : ""}
       {showTweetModal ? <TweetModal /> : ""}
       <div className="flex items-start gap-6 py-2 w-full flex-shrink">
-        <div className="min-w-28">
+        <div className="w-28">
           <UserAvatar
             className={"avatar border"}
             userName={currentUser?.userName}
