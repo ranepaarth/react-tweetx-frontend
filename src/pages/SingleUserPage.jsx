@@ -2,6 +2,7 @@ import React from "react";
 import { GoLock } from "react-icons/go";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import ProfilePageLoading from "../components/Loading/ProfilePageLoading";
 import ProfileSection from "../components/ProfilePage/ProfileSection/ProfileSection";
 import UserAvatar from "../components/User/UserAvatar";
 import UserButton from "../components/User/UserButton";
@@ -37,13 +38,21 @@ const PrivateAccount = () => {
 
 const SingleUserPage = () => {
   const { name: userName } = useParams();
-  const { data: user } = useGetUserProfileQuery(userName, {
+  const {
+    data: user,
+    isLoading,
+    isSuccess,
+  } = useGetUserProfileQuery(userName, {
     skip: userName === "",
   });
 
   const currentUser = useSelector(getCurrentUser);
 
   const isFollowing = isFollowingUser(currentUser, user?._id);
+
+  if (isLoading) {
+    return <ProfilePageLoading />;
+  }
 
   if (!user) {
     return <UserNotFound userName={userName} />;
