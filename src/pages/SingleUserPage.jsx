@@ -42,7 +42,6 @@ const SingleUserPage = () => {
   });
 
   const currentUser = useSelector(getCurrentUser);
-  console.log({ user });
 
   const isFollowing = isFollowingUser(currentUser, user?._id);
 

@@ -15,7 +15,6 @@ const UserInfoModal = () => {
   const dispatch = useDispatch();
   const showUserModal = useSelector(getShowUserModal);
   const currentUser = useSelector(getCurrentUser);
-  console.log({ showUserModal });
   const dateJoined = format(new Date(currentUser?.createdAt), "LLLL yyyy");
 
   return (

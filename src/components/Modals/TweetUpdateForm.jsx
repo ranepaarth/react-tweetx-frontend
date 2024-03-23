@@ -57,13 +57,10 @@ const TweetUpdateForm = () => {
     if (isUpdating) setValue("content", tweetToUpdate?.content);
   }, [showTweetModal]);
 
-  const onFormError = (data) => {
-    console.log(data);
-  };
 
   return (
     <form
-      onSubmit={handleSubmit(onTweetSubmit, onFormError)}
+      onSubmit={handleSubmit(onTweetSubmit)}
       className="w-full"
     >
       <FormRow

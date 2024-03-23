@@ -24,8 +24,6 @@ const UsersPage = () => {
 
   const currentUser = useSelector(getCurrentUser);
 
-  console.log({ users });
-
   let content;
   if (isLoading) content = <UserLoadingSkeleton />;
 

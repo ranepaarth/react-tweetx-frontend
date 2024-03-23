@@ -15,7 +15,6 @@ const TweetBookmarkBtn = ({ tweetId }) => {
   const handleBookMarkTweet = async () => {
     try {
       const result = await saveTweet({ tweetId });
-      //   console.log(result);
       isSaved
         ? toast.custom(<RemoveFromBookmark />)
         : toast.custom((t) => <AddToBookmark t={t} />);

@@ -5,12 +5,9 @@ import { useLikeTweetMutation } from "../../features/api/tweetsApiSlice";
 const TweetLikeBtn = ({ tweetId, likedBy, currentUserId }) => {
   const [likeTweet] = useLikeTweetMutation();
 
-  // console.log({ likedBy });
-
   const handleClick = async () => {
     try {
-      const liked = await likeTweet({ tweetId });
-      console.log({ liked });
+      await likeTweet({ tweetId });
     } catch (error) {
       console.log(error);
     }
@@ -20,7 +17,9 @@ const TweetLikeBtn = ({ tweetId, likedBy, currentUserId }) => {
     notation: "compact",
     maximumFractionDigits: "1",
   });
+
   let likes = formatter.format(likedBy?.length);
+
   return (
     <div className="flex items-center">
       <button
@@ -35,7 +34,6 @@ const TweetLikeBtn = ({ tweetId, likedBy, currentUserId }) => {
         )}
       </button>
       <span className="text-neutral-500 text-sm">
-        {/* {likedBy?.length != 0 && likedBy?.length} */}
         {likedBy?.length != 0 && likes}
       </span>
     </div>

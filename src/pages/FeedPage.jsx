@@ -34,7 +34,6 @@ const FeedPage = () => {
   const handleSaveTweet = async (tweetId) => {
     try {
       const result = await saveTweet({ tweetId });
-      console.log(result);
     } catch (error) {
       console.log({ error });
     }

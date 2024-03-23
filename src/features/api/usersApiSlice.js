@@ -46,14 +46,12 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     getSearchUsers: builder.query({
       query: (userName) => `/users/search/${userName}`,
       validateStatus: (response, result) => {
-        console.log("validateStatus", { result });
         return response.status === 200 && !result.isError;
       },
     }),
     getUserProfile: builder.query({
       query: (userName) => `/users/profile/${userName}`,
       validateStatus: (response, result) => {
-        console.log("validateStatus", { result });
         return response.status === 200 && !result.isError;
       },
     }),

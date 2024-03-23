@@ -32,7 +32,6 @@ const SingleTweet = ({ tweetId }) => {
         setDate(newCreatedAt);
         return newCreatedAt;
       } catch (error) {
-        console.log("Error parsing createdAt:", error);
         return null;
       }
     };

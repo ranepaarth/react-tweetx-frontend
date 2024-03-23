@@ -9,7 +9,6 @@ const usersSlice = createSlice({
   },
   reducers: {
     setCurrentUserName: (state, action) => {
-      console.log({ payload: action.payload });
       state.currentUserName = action.payload;
     },
     toggleShowUserModal: (state, action) => {

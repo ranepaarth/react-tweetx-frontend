@@ -25,10 +25,8 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
   // this means the accessToken expired
   if (result?.error?.status === 403) {
     // sending refreshToken
-    console.log("sending refresh token");
 
     const tokenObject = await baseQuery("/auth/refresh", api, extraOptions);
-    console.log({ tokenObject });
     // tokenObject has three property error,data,meta
     if (tokenObject?.data) {
       const { accessToken } = tokenObject.data;

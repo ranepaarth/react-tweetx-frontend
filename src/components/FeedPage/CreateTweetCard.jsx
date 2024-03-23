@@ -26,16 +26,12 @@ const CreateTweetCard = () => {
   const handleCreateTweet = async (data) => {
     try {
       const response = await createTweet(data);
-      console.log(response);
       setValue("content", "");
     } catch (error) {
       console.log(error);
     }
   };
 
-  const onFormError = (data) => {
-    console.log(data);
-  };
 
   const handleClearTextInput = () => {
     setValue("content", "");
@@ -56,7 +52,7 @@ const CreateTweetCard = () => {
 
           <form
             className="flex flex-col items-start w-full mx-4"
-            onSubmit={handleSubmit(handleCreateTweet, onFormError)}
+            onSubmit={handleSubmit(handleCreateTweet)}
           >
             <div className="bg-neutral w-full">
               <TextareaAutosize

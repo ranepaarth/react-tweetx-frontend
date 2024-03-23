@@ -3,7 +3,6 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
 const CstmCircularProgressBar = ({ wordCount }) => {
   let percentage = (wordCount?.length / 200) * 100;
-  console.log(percentage);
   return (
     <>
       {wordCount?.length > 0 && (

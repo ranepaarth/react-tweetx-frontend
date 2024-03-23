@@ -9,7 +9,6 @@ const Modal = ({ showModal, children, isTweet }) => {
   const dispatch = useDispatch();
   const modalRef = useRef(null);
   const handleOverlayClick = (e) => {
-    // console.log("clicked", modalRef.current === e.target);
     if (modalRef.current === e.target && isTweet) {
       dispatch(toggleShowModal());
     } else if (modalRef.current === e.target && !isTweet) {

@@ -6,7 +6,6 @@ import { store } from "../store";
 
 const PrefetchComponent = () => {
   useEffect(() => {
-    console.log("subscribing");
     const users = store.dispatch(
       usersApiSlice.endpoints.getAllUsers.initiate()
     );
@@ -24,7 +23,6 @@ const PrefetchComponent = () => {
     );
 
     return () => {
-      console.log("unsubscribing");
       users.unsubscribe();
       tweets.unsubscribe();
       profile.unsubscribe();

@@ -37,8 +37,6 @@ const SearchInput = () => {
     content = "";
   }
 
-  console.log({ searchedUsers });
-
   if (searchTerm !== "" && searchedUsers?.length > 0) {
     content = searchedUsers.map((user) => (
       <SearchUserCard user={user} key={user._id} />

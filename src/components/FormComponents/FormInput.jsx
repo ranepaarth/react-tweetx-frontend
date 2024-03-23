@@ -9,6 +9,7 @@ const FormInput = ({ placeholder, register, type, autoFocus }) => {
       {...register}
       autoFocus={autoFocus}
       autoComplete="off"
+      maxLength={30}
     />
   );
 };
