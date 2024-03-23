@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
+import { IoMdInformationCircle } from "react-icons/io";
 import FormBody from "../components/FormComponents/FormBody";
 import FormContainer from "../components/FormComponents/FormContainer";
 import FormHeader from "../components/FormComponents/FormHeader";
@@ -9,7 +10,7 @@ import FormNavigationButton from "../components/FormComponents/FormNavigationBut
 import FormPasswordInput from "../components/FormComponents/FormPasswordInput";
 import FormRow from "../components/FormComponents/FormRow";
 import FormSubmitButton from "../components/FormComponents/FormSubmitButton";
-import { useRegisterUserMutation } from "../slice/authApiSlice";
+import { useRegisterUserMutation } from "../features/api/authApiSlice";
 import { formValidation } from "../utils/formValidationOptions";
 
 const RegisterPage = () => {
@@ -29,13 +30,9 @@ const RegisterPage = () => {
     toast.success("Account created successfully", {
       duration: 5000,
     });
-    // console.log(response);
     reset();
   };
 
-  const onFormError = (error) => {
-    // console.log(error);
-  };
   return (
     <>
       <FormNavigationButton text="Login" path={"login"} />
@@ -44,24 +41,38 @@ const RegisterPage = () => {
           <div className="mb-10">
             <FormHeader heading={"create account"} />
           </div>
-          <FormBody
-            handleSubmit={handleSubmit}
-            onFormError={onFormError}
-            onFormSubmit={onFormSubmit}
-          >
-            <FormRow error={errors?.name?.message}>
+          <FormBody handleSubmit={handleSubmit} onFormSubmit={onFormSubmit}>
+            <div
+              className={`text-xs mt-1 text-red-500 font-medium ${
+                error ? "flex" : "hidden"
+              } items-center gap-1 pb-2`}
+            >
+              <span>
+                <IoMdInformationCircle />
+              </span>
+              <span>{error?.data?.message}</span>
+            </div>
+            <FormRow error={errors?.fullName?.message}>
               <FormInput
-                placeholder={"name"}
+                placeholder={"Full Name"}
                 type={"text"}
                 autoFocus={true}
-                register={register("name", formValidation.name)}
+                register={register("fullName", formValidation.fullName)}
               />
             </FormRow>
-            <FormRow error={errors?.email?.message || error?.data?.message}>
+            <FormRow error={errors?.email?.message}>
               <FormInput
                 placeholder={"email"}
                 type={"text"}
                 register={register("email", formValidation.email)}
+              />
+            </FormRow>
+            <FormRow error={errors?.userName?.message}>
+              <FormInput
+                placeholder={"userName"}
+                type={"text"}
+                autoFocus={true}
+                register={register("userName", formValidation.userName)}
               />
             </FormRow>
             <FormRow error={errors?.password?.message}>
