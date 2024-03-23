@@ -27,11 +27,9 @@ const ResetPasswordPage = () => {
   const onFormSubmit = async (data) => {
     try {
       const response = await resetPassword(data);
-      console.log(response);
       if (response?.data?.success) {
-        console.log(response);
+        toast.success("Password reset successful. Login to continue");
         reset();
-        toast.success("Password reset successful");
       }
     } catch (error) {
       console.log(error);
@@ -79,19 +77,6 @@ const ResetPasswordPage = () => {
                 isLoading={isLoading}
                 isSuccess={isSuccess}
               />
-              {true ? (
-                <p className="font-normal">
-                  <Link
-                    to="/auth/login"
-                    className="text-pink-500 font-medium hover:underline transition-transform ease-in-out duration-200"
-                  >
-                    Login
-                  </Link>{" "}
-                  to continue
-                </p>
-              ) : (
-                ""
-              )}
             </div>
           </FormBody>
         </FormContainer>

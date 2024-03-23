@@ -1,7 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { IoMdInformationCircle } from "react-icons/io";
 import FormBody from "../components/FormComponents/FormBody";
 import FormContainer from "../components/FormComponents/FormContainer";
 import FormHeader from "../components/FormComponents/FormHeader";
@@ -22,15 +21,19 @@ const RegisterPage = () => {
     formState: { errors },
   } = useForm();
 
-  const [registerUser, { isLoading, isSuccess, error }] =
-    useRegisterUserMutation();
+  const [registerUser, { isLoading, isSuccess }] = useRegisterUserMutation();
 
   const onFormSubmit = async (data) => {
-    const response = await registerUser(data).unwrap();
-    toast.success("Account created successfully", {
-      duration: 5000,
-    });
-    reset();
+    try {
+      await registerUser(data).unwrap();
+      toast.success("Account created successfully", {
+        duration: 5000,
+      });
+      reset();
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.data?.message);
+    }
   };
 
   return (
@@ -42,16 +45,6 @@ const RegisterPage = () => {
             <FormHeader heading={"create account"} />
           </div>
           <FormBody handleSubmit={handleSubmit} onFormSubmit={onFormSubmit}>
-            <div
-              className={`text-xs mt-1 text-red-500 font-medium ${
-                error ? "flex" : "hidden"
-              } items-center gap-1 pb-2`}
-            >
-              <span>
-                <IoMdInformationCircle />
-              </span>
-              <span>{error?.data?.message}</span>
-            </div>
             <FormRow error={errors?.fullName?.message}>
               <FormInput
                 placeholder={"Full Name"}
@@ -69,9 +62,8 @@ const RegisterPage = () => {
             </FormRow>
             <FormRow error={errors?.userName?.message}>
               <FormInput
-                placeholder={"userName"}
+                placeholder={"Username"}
                 type={"text"}
-                autoFocus={true}
                 register={register("userName", formValidation.userName)}
               />
             </FormRow>

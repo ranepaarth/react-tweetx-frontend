@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { IoMdInformationCircle } from "react-icons/io";
+import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import FormBody from "../components/FormComponents/FormBody";
@@ -26,13 +26,12 @@ const LoginPage = () => {
     watch,
   } = useForm();
   const navigate = useNavigate();
-  const [loginUser, { error }] = useLoginUserMutation();
+  const [loginUser] = useLoginUserMutation();
   const dispatch = useDispatch();
 
   const onFormSubmit = async (data) => {
     try {
       const result = await loginUser(data).unwrap();
-      console.log({ result });
       dispatch(setCurrentUserName(result.userExist._id));
       dispatch(setAccessToken(result.accessToken));
       dispatch(setCurrentUserId(result.userId));
@@ -42,10 +41,9 @@ const LoginPage = () => {
       });
     } catch (error) {
       console.log(error);
+      toast.error(error?.data?.message);
     }
   };
-
-  const password = watch("password");
 
   return (
     <div>
@@ -70,16 +68,6 @@ const LoginPage = () => {
                 register={register("password", formValidation.password)}
               />
             </FormRow>
-            <div
-              className={`text-xs mt-1 text-red-500 font-medium ${
-                error ? "flex" : "hidden"
-              } items-center gap-1 pb-2`}
-            >
-              <span>
-                <IoMdInformationCircle />
-              </span>
-              <span>{password?.length ? error?.data?.message : ""}</span>
-            </div>
             <footer className="w-full flex justify-between items-center">
               <Link
                 to={"/auth/reset"}
