@@ -26,7 +26,7 @@ const LoginPage = () => {
     watch,
   } = useForm();
   const navigate = useNavigate();
-  const [loginUser] = useLoginUserMutation();
+  const [loginUser, { isLoading, isSuccess }] = useLoginUserMutation();
   const dispatch = useDispatch();
 
   const onFormSubmit = async (data) => {
@@ -36,7 +36,7 @@ const LoginPage = () => {
       dispatch(setAccessToken(result.accessToken));
       dispatch(setCurrentUserId(result.userId));
       setPersist((prev) => !prev);
-      navigate("/", {
+      navigate("/feed", {
         replace: true,
       });
     } catch (error) {
@@ -75,7 +75,11 @@ const LoginPage = () => {
               >
                 Forgot password?
               </Link>
-              <FormSubmitButton text={"Login"} />
+              <FormSubmitButton
+                text={"Login"}
+                isLoading={isLoading}
+                isSuccess={isSuccess}
+              />
             </footer>
           </FormBody>
 

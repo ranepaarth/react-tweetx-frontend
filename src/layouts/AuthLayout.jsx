@@ -8,10 +8,8 @@ import LogoText from "../components/NavBar/LogoText";
 
 const AuthLayout = () => {
   const pathname = useLocation();
-  console.log(pathname.pathname);
 
   const currentPage = pathname.pathname.split("/")[2];
-  console.log(currentPage);
 
   let imgSource;
   if (currentPage === "login") {
