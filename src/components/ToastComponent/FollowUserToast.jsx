@@ -1,14 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import {
-  selectById,
-  useFollowUserMutation,
-} from "../../features/api/usersApiSlice";
+import { selectById } from "../../features/api/usersApiSlice";
 import UserAvatar from "../User/UserAvatar";
 
-const FollowUserToast = ({ userId, t }) => {
+const FollowUserToast = ({ userId, followUser }) => {
   const singleUser = useSelector((state) => selectById(state, userId));
-  const [followUser] = useFollowUserMutation();
 
   useEffect(() => {
     const handleFollowUser = async () => {

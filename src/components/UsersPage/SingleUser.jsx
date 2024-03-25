@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectById } from "../../features/api/usersApiSlice";
+import { getCurrentUser } from "../../features/slice/usersSlice";
+import useCustomIsFollowing from "../../hooks/useCustomIsFollowing";
+import { isFollowingUser } from "../../utils/isFollowing";
+import SingleUserLoading from "../Loading/SingleUserLoading";
 import UserAvatar from "../User/UserAvatar";
 import UserButton from "../User/UserButton";
 import UserFullName from "../User/UserFullName";
@@ -9,6 +13,17 @@ import UserName from "../User/UserName";
 
 const SingleUser = ({ userId }) => {
   const singleUser = useSelector((state) => selectById(state, userId));
+  const currentUser = useSelector(getCurrentUser);
+
+  const [isFollowing, setIsFollowing] = useCustomIsFollowing(
+    currentUser,
+    userId
+  );
+
+  if (!singleUser) {
+    return <SingleUserLoading />;
+  }
+
   return (
     <article
       className={`w-full flex sm:items-start items-center justify-between px-1 py-6 cursor-default transition-transform ease-in-out duration-200`}
@@ -51,8 +66,11 @@ const SingleUser = ({ userId }) => {
           </div>
         </div>
       </div>
-
-      <UserButton user={singleUser} userId={singleUser?._id} />
+      <UserButton
+        userId={singleUser?._id}
+        isFollowing={isFollowing}
+        setIsFollowing={setIsFollowing}
+      />
     </article>
   );
 };

@@ -1,24 +1,22 @@
 import React from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
-import {
-  selectById,
-  useFollowUserMutation,
-} from "../../features/api/usersApiSlice";
+import { selectById } from "../../features/api/usersApiSlice";
 import UserAvatar from "../User/UserAvatar";
 
-const UnfollowUserToast = ({ userId, t }) => {
+const UnfollowUserToast = ({ userId, t, unFollowUser, setIsFollowing }) => {
   const singleUser = useSelector((state) => selectById(state, userId));
-  const [followUser] = useFollowUserMutation();
 
   const handleUnFollow = async () => {
     try {
-      await followUser(userId);
+      await unFollowUser(userId);
+      setIsFollowing(false);
       toast.dismiss(t.id);
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <article className="bg-neutral-50 shadow-lg rounded-lg border flex flex-col items-center divide-y-2 text-sm">
       <div className="flex flex-col items-center gap-2 p-4">

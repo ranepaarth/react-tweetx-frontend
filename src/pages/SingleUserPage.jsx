@@ -12,7 +12,7 @@ import UserName from "../components/User/UserName";
 import UserNotFound from "../components/UsersPage/UserNotFound";
 import { useGetUserProfileQuery } from "../features/api/usersApiSlice";
 import { getCurrentUser } from "../features/slice/usersSlice";
-import { isFollowingUser } from "../utils/isFollowing";
+import useCustomIsFollowing from "../hooks/useCustomIsFollowing";
 
 const PrivateAccount = () => {
   return (
@@ -38,17 +38,15 @@ const PrivateAccount = () => {
 
 const SingleUserPage = () => {
   const { name: userName } = useParams();
-  const {
-    data: user,
-    isLoading,
-    isSuccess,
-  } = useGetUserProfileQuery(userName, {
+  const { data: user, isLoading } = useGetUserProfileQuery(userName, {
     skip: userName === "",
   });
-
   const currentUser = useSelector(getCurrentUser);
 
-  const isFollowing = isFollowingUser(currentUser, user?._id);
+  const [isFollowing, setIsFollowing] = useCustomIsFollowing(
+    currentUser,
+    user?._id
+  );
 
   if (isLoading) {
     return <ProfilePageLoading />;
@@ -76,7 +74,11 @@ const SingleUserPage = () => {
                 className={"profile-userName"}
               />
             </div>
-            <UserButton userId={user?._id} />
+            <UserButton
+              userId={user?._id}
+              isFollowing={isFollowing}
+              setIsFollowing={setIsFollowing}
+            />
           </div>
           <div className="flex items-center gap-8">
             <UserInfo
