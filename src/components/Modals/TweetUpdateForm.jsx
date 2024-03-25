@@ -1,12 +1,8 @@
 import React, { useEffect } from "react";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  useCreateTweetMutation,
-  useUpdateTweetMutation,
-} from "../../features/api/tweetsApiSlice";
+import { useUpdateTweetMutation } from "../../features/api/tweetsApiSlice";
 import {
   getIsTweetUpdating,
   getShowTweetModal,
@@ -22,7 +18,7 @@ const TweetUpdateForm = () => {
   const tweetToUpdate = useSelector(getTweetToUpdate);
   const showTweetModal = useSelector(getShowTweetModal);
   const isUpdating = useSelector(getIsTweetUpdating);
-  const [updateTweet] = useUpdateTweetMutation();
+  const [updateTweet, { isLoading, isSuccess }] = useUpdateTweetMutation();
   const dispatch = useDispatch();
 
   const {
@@ -47,7 +43,6 @@ const TweetUpdateForm = () => {
         tweetId: tweetToUpdate?._id,
         content: data.content,
       });
-      dispatch(toggleShowModal());
     } catch (error) {
       console.log(error);
     }
@@ -55,14 +50,11 @@ const TweetUpdateForm = () => {
 
   useEffect(() => {
     if (isUpdating) setValue("content", tweetToUpdate?.content);
-  }, [showTweetModal]);
-
+    if (isSuccess) dispatch(toggleShowModal());
+  }, [showTweetModal, isSuccess]);
 
   return (
-    <form
-      onSubmit={handleSubmit(onTweetSubmit)}
-      className="w-full"
-    >
+    <form onSubmit={handleSubmit(onTweetSubmit)} className="w-full">
       <FormRow
         error={
           errors?.content?.type === "validate"
@@ -92,7 +84,9 @@ const TweetUpdateForm = () => {
       </div>
 
       <div className="my-4">
-        <FormSubmitButton text={isUpdating ? "Update Tweet" : "Create Tweet"} />
+        <FormSubmitButton
+          text={!isLoading ? "Update Tweet" : <p className="loader"></p>}
+        />
       </div>
     </form>
   );
