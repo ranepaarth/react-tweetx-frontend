@@ -4,6 +4,7 @@ import { GoDotFill } from "react-icons/go";
 import { useSelector } from "react-redux";
 import { selectTweetById } from "../../features/api/tweetsApiSlice";
 import { getCurrentUserId } from "../../features/slice/authSlice";
+import SingleTweetLoading from "../Loading/SingleTweetLoading";
 import UserAvatar from "../User/UserAvatar";
 import UserFullName from "../User/UserFullName";
 import UserName from "../User/UserName";
@@ -38,6 +39,10 @@ const SingleTweet = ({ tweetId }) => {
 
     if (singleTweet) tweetCreatedAt(singleTweet?.createdAt);
   }, []);
+
+  if (!singleTweet) {
+    return <SingleTweetLoading />;
+  }
 
   return (
     <TweetBody>
