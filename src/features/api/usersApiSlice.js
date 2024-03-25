@@ -63,6 +63,14 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [{ type: "User", id: "LIST" }, "Profile", "Tweet"],
     }),
+    unFollowUser: builder.mutation({
+      query: (userId) => ({
+        url: "/users/handle-unfollow",
+        method: "PATCH",
+        body: { userId },
+      }),
+      invalidatesTags: [{ type: "User", id: "LIST" }, "Profile", "Tweet"],
+    }),
   }),
 });
 
@@ -72,6 +80,7 @@ export const {
   useGetSearchUsersQuery,
   useGetUserProfileQuery,
   useFollowUserMutation,
+  useUnFollowUserMutation,
 } = usersApiSlice;
 
 export const selectUsersResult = usersApiSlice.endpoints.getAllUsers.select();
