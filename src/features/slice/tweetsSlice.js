@@ -7,7 +7,6 @@ export const tweetsSlice = createSlice({
     showTweetModal: false,
     isTweetUpdating: false,
     tweetToUpdate: null,
-    tweetIdToDelete: [],
   },
   reducers: {
     setSavedTweets: (state, action) => {
@@ -27,10 +26,6 @@ export const tweetsSlice = createSlice({
     setTweetToUpdate: (state, action) => {
       state.tweetToUpdate = action.payload;
     },
-    setTweetIdToDelete: (state, action) => {
-      state.tweetIdToDelete = action.payload;
-    },
-    
   },
 });
 
@@ -38,7 +33,6 @@ export const getSavedTweets = (state) => state.tweets.savedTweets;
 export const getShowTweetModal = (state) => state.tweets.showTweetModal;
 export const getIsTweetUpdating = (state) => state.tweets.isTweetUpdating;
 export const getTweetToUpdate = (state) => state.tweets.tweetToUpdate;
-export const getTweetIdToDelete = (state) => state.tweets.tweetIdToDelete;
 
 export const {
   setSavedTweets,
@@ -46,7 +40,6 @@ export const {
   toggleShowModal,
   toggleIsTweetUpdating,
   setTweetToUpdate,
-  setTweetIdToDelete,
 } = tweetsSlice.actions;
 
 export default tweetsSlice.reducer;
