@@ -2,6 +2,7 @@ import React from "react";
 import { BsBookmarks } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import ProfilePageLoading from "../components/Loading/ProfilePageLoading";
 import TweetModal from "../components/Modals/TweetModal";
 import CurrUserInfo from "../components/Modals/UserInfoModal";
 import ProfileSection from "../components/ProfilePage/ProfileSection/ProfileSection";
@@ -12,13 +13,12 @@ import UserName from "../components/User/UserName";
 import { useGetCurrUserProfileQuery } from "../features/api/usersApiSlice";
 import { getShowTweetModal } from "../features/slice/tweetsSlice";
 import {
-  getCurrentUser,
   getShowUserModal,
   toggleShowUserModal,
 } from "../features/slice/usersSlice";
 
 const ProfilePage = () => {
-  const currentUser = useSelector(getCurrentUser);
+  const { data: currentUser, isLoading } = useGetCurrUserProfileQuery();
 
   const showTweetModal = useSelector(getShowTweetModal);
   const showUserModal = useSelector(getShowUserModal);
@@ -27,6 +27,10 @@ const ProfilePage = () => {
   const handleClick = () => {
     dispatch(toggleShowUserModal());
   };
+
+  if (isLoading) {
+    return <ProfilePageLoading />;
+  }
 
   return (
     <div className="w-full">
