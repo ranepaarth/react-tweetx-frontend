@@ -46,9 +46,7 @@ const CreateTweetCard = () => {
   }
 
   return (
-    <article
-      className={`flex items-center justify-between w-full bg-white shadow-md shadow-neutral-200/50 rounded pl-4 py-4 overflow-hidden relative`}
-    >
+    <article className="flex items-center justify-between w-full bg-white shadow-md shadow-neutral-200/50 rounded pl-4 py-4">
       <div className="w-full">
         <div className="w-full flex items-start">
           <div className="flex items-center gap-x-2">
@@ -63,25 +61,34 @@ const CreateTweetCard = () => {
           </div>
 
           <form
-            className="flex flex-col items-start w-full mx-4"
+            className="flex flex-col items-start w-full mx-2"
             onSubmit={handleSubmit(handleCreateTweet)}
           >
-            <div className="bg-neutral w-full">
+            <div
+              className={`w-full ${
+                wordCount?.length === 210
+                  ? "border-red-500"
+                  : "border-transparent"
+              } border rounded-md px-2`}
+            >
               <TextareaAutosize
                 maxRows={15}
                 minRows={2}
                 className="resize-none w-full bg-transparent outline-none border-none placeholder:text-lg placeholder:font-normal text-neutral-800 font-medium placeholder:max-sm:text-base"
                 placeholder="What is happening?!"
+                maxLength={210}
                 {...register("content", {
                   validate: (value) => value.length <= 200,
                 })}
               />
             </div>
-            <p>
-              {errors?.content?.type === "validate"
-                ? "Text cannot exceed 5 words"
-                : errors?.content?.message}
-            </p>
+            <div
+              className={`text-xs text-red-500 font-medium pt-1 ${
+                wordCount?.length === 210 ? "block" : "invisible"
+              }`}
+            >
+              Maximum character limit reached!!!
+            </div>
             <div className="w-full flex items-center justify-between gap-2">
               <div className={wordCount?.length > 0 ? "visible" : "invisible"}>
                 <button
