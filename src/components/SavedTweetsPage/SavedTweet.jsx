@@ -1,16 +1,17 @@
-import UserAvatar from "../User/UserAvatar";
-import UserFullName from "../User/UserFullName";
-import UserName from "../User/UserName";
 import { formatDistanceStrict } from "date-fns";
 import { React, useEffect, useState } from "react";
-import { GoBookmarkFill, GoDotFill } from "react-icons/go";
+import { GoDotFill } from "react-icons/go";
 import TweetBody from "../FeedPage/TweetBody";
+import TweetBookmarkBtn from "../FeedPage/TweetBookmarkBtn";
 import TweetContent from "../FeedPage/TweetContent";
 import TweetDeleteBtn from "../FeedPage/TweetDeleteBtn";
 import TweetEditBtn from "../FeedPage/TweetEditBtn";
 import TweetLikeBtn from "../FeedPage/TweetLikeBtn";
+import UserAvatar from "../User/UserAvatar";
+import UserFullName from "../User/UserFullName";
+import UserName from "../User/UserName";
 
-const SavedTweet = ({ tweet, currentUserId, handleSaveTweet }) => {
+const SavedTweet = ({ tweet, currentUserId }) => {
   const [date, setDate] = useState(null);
   useEffect(() => {
     const tweetCreatedAt = (createdAt) => {
@@ -64,20 +65,8 @@ const SavedTweet = ({ tweet, currentUserId, handleSaveTweet }) => {
                 currentUserId={currentUserId}
               />
               <TweetEditBtn tweet={tweet} currUserId={currentUserId} />
-              <div className="text-neutral-500 hover:text-neutral-700 p-1 rounded-full">
-                <button
-                  onClick={() => handleSaveTweet(tweet?._id)}
-                  className="hover:bg-pink-100 hover:text-pink-500 p-2 rounded-full transition-colors duration-200 ease-in-out"
-                >
-                  <GoBookmarkFill className="text-pink-400" />
-                </button>
-              </div>
-
-              {currentUserId === tweet?.createdBy._id ? (
-                <TweetDeleteBtn tweetId={tweet?._id} />
-              ) : (
-                ""
-              )}
+              <TweetBookmarkBtn tweetId={tweet?._id} />
+              <TweetDeleteBtn tweetId={tweet?._id} />
             </div>
           </div>
         </div>
@@ -87,10 +76,3 @@ const SavedTweet = ({ tweet, currentUserId, handleSaveTweet }) => {
 };
 
 export default SavedTweet;
-
-// <button
-//   onClick={() => handleSaveTweet(tweet?._id)}
-//   className="hover:bg-pink-100 hover:text-pink-500 p-2 rounded-full transition-colors duration-200 ease-in-out"
-// >
-//   <GoBookmarkFill className="text-pink-400" />
-// </button>
