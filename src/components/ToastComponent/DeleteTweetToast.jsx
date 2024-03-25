@@ -1,17 +1,10 @@
 import React from "react";
 import toast from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
-import { useDeleteTweetMutation } from "../../features/api/tweetsApiSlice";
-import { getTweetIdToDelete } from "../../features/slice/tweetsSlice";
 
-const DeleteTweetToast = ({ t }) => {
-  const [deleteTweet] = useDeleteTweetMutation();
-  const tweetIdToDelete = useSelector(getTweetIdToDelete);
-
-  const dispatch = useDispatch();
+const DeleteTweetToast = ({ t, tweetId, deleteTweet }) => {
   const handleDeleteTweet = async () => {
     try {
-      await deleteTweet(tweetIdToDelete);
+      await deleteTweet(tweetId);
 
       toast.dismiss(t.id);
     } catch (error) {
