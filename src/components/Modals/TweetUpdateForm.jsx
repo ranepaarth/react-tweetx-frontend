@@ -63,7 +63,7 @@ const TweetUpdateForm = () => {
       <FormRow
         error={
           errors?.content?.message ||
-          (errors?.content?.type === "validate"
+          (wordCount?.length === 210
             ? "Maximum character limit reached!!!"
             : "")
         }
@@ -77,7 +77,6 @@ const TweetUpdateForm = () => {
           autoFocus
           {...register("content", {
             required: "Tweet cannot be empty",
-            validate: (value) => value.length <= 209,
           })}
           maxLength={210}
         />
