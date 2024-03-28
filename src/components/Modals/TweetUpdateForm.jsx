@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "react-circular-progressbar/dist/styles.css";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import TextAreaAutosize from "react-textarea-autosize";
 import { useUpdateTweetMutation } from "../../features/api/tweetsApiSlice";
 import {
   getIsTweetUpdating,
@@ -48,31 +49,38 @@ const TweetUpdateForm = () => {
     }
   };
 
+  const onError = (data) => {
+    console.log(data);
+  };
+
   useEffect(() => {
     if (isUpdating) setValue("content", tweetToUpdate?.content);
     if (isSuccess) dispatch(toggleShowModal());
   }, [showTweetModal, isSuccess]);
 
   return (
-    <form onSubmit={handleSubmit(onTweetSubmit)} className="w-full">
+    <form onSubmit={handleSubmit(onTweetSubmit, onError)} className="w-full">
       <FormRow
         error={
-          errors?.content?.type === "validate"
-            ? "Cannot exceed 200 characters."
-            : errors?.content?.message
+          errors?.content?.message ||
+          (errors?.content?.type === "validate"
+            ? "Maximum character limit reached!!!"
+            : "")
         }
       >
-        <textarea
+        <TextAreaAutosize
           name="tweetContent"
           id="tweetContent"
-          rows="5"
+          minRows={5}
+          maxRows={10}
           className="resize-none w-full bg-transparent outline-none border-none text-sm md:text-base"
           autoFocus
           {...register("content", {
-            required: "Please enter something",
-            validate: (value) => value.length <= 200,
+            required: "Tweet cannot be empty",
+            validate: (value) => value.length <= 209,
           })}
-        ></textarea>
+          maxLength={210}
+        />
       </FormRow>
 
       <div className="flex items-center justify-between">
