@@ -7,8 +7,8 @@ Implemented a social media web application where users can connect and share tho
 
 [Live Demo](https://tweetx-deploy.vercel.app/auth/login)
 
-![TweetX Demo](https://github.com/ranepaarth/react-assignment-tweetx/assets/130083485/802a2e16-a77b-4e82-b4d7-44de0925a6a3)
 
+https://github.com/ranepaarth/react-assignment-tweetx/assets/130083485/7d500ce2-ed07-47ff-8789-366336977197
 
 ## Features
 
