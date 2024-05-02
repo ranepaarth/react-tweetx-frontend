@@ -3,7 +3,7 @@
 
 Implemented a social media web application where users can connect and share thoughts amongst each other. 
 
-**Note:** Visit [tweetx-backend](https://github.com/ranepaarth/react-assignment-tweetx-backend) to install and setup the backend for this repository.
+**Note:** Visit [react-tweetx-backend](https://github.com/ranepaarth/react-assignment-tweetx-backend) to install and setup the backend API for this repository.
 
 [Live Demo](https://tweetx-deploy.vercel.app/auth/login)
 
