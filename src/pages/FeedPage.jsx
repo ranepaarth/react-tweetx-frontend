@@ -6,6 +6,7 @@ import TweetLoadingSkeleton from "../components/Loading/TweetLoadingSkeleton";
 import TweetModal from "../components/Modals/TweetModal";
 import LogoText from "../components/NavBar/LogoText";
 import NoTweets from "../components/ProfilePage/ProfileSection/NoTweets";
+import Socials from "../components/Socials";
 import {
   useGetAllSavedTweetsQuery,
   useGetFeedTweetsQuery,
@@ -58,8 +59,9 @@ const FeedPage = () => {
 
   return (
     <div className="flex flex-col gap-y-8 items-start justify-start w-full">
-      <div className="md:hidden">
+      <div className="md:hidden flex w-full items-center justify-between">
         <LogoText />
+        <Socials />
       </div>
       {showTweetModal ? <TweetModal /> : ""}
       <section className="w-full flex flex-col gap-y-4">

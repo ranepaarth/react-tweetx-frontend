@@ -3,6 +3,7 @@ import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
 import MobileNav from "../components/NavBar/MobileNav";
 import Navbar from "../components/NavBar/Navbar";
+import Socials from "../components/Socials";
 
 const AppLayout = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
@@ -19,7 +20,12 @@ const AppLayout = () => {
     };
   }, []);
   return (
-    <div className="min-h-screen bg-neutral-50 flex flex-col justify-between items-center md:justify-start h-fit">
+    <div className="min-h-screen bg-neutral-50 flex flex-col justify-between items-center md:justify-start h-fit relative">
+
+      <div className="fixed right-2 bottom-20 hidden md:block">
+        <Socials />
+      </div>
+
       <Navbar />
 
       {isSmallScreen ? (
