@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useLikeTweetMutation } from "../../features/api/tweetsApiSlice";
 import { getCurrentUserId } from "../../features/slice/authSlice";
-// import useCustomLikeTweet from "../../hooks/useCustomLikeTweet";
 import { useSelector } from "react-redux";
 
 const TweetLikeBtn = ({ tweetId, likedBy }) => {
-  const [likeTweet, { isLoading }] = useLikeTweetMutation();
+  const [likeTweet] = useLikeTweetMutation();
   const currentUserId = useSelector(getCurrentUserId);
 
-  // const [isLiked, setIsLiked] = useCustomLikeTweet(tweetId);
   const [isLiked, setIsLiked] = useState(likedBy?.includes(currentUserId));
 
   const handleClick = async () => {
@@ -27,14 +25,6 @@ const TweetLikeBtn = ({ tweetId, likedBy }) => {
   });
 
   let likes = formatter.format(likedBy?.length);
-
-  // if (isLoading) {
-  //   return (
-  //     <p className="bg-red-300 w-8 rounded-full aspect-square flex items-center justify-center">
-  //       <span className="loader"></span>
-  //     </p>
-  //   );
-  // }
 
   return (
     <div className="flex items-center">

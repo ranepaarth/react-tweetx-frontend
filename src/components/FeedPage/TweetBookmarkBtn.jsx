@@ -4,13 +4,11 @@ import { GoBookmark, GoBookmarkFill } from "react-icons/go";
 import { useSelector } from "react-redux";
 import { useSaveTweetMutation } from "../../features/api/tweetsApiSlice";
 import { getSavedTweets } from "../../features/slice/tweetsSlice";
-// import useCustomSaveTweet from "../../hooks/useCustomSaveTweet";
 import AddToBookmark from "../ToastComponent/AddToBookmark";
 import RemoveFromBookmark from "../ToastComponent/RemoveFromBookmark";
 
 const TweetBookmarkBtn = ({ tweetId }) => {
-  const [saveTweet, { isLoading }] = useSaveTweetMutation();
-  // const [isTweetSaved, setIsTweetSaved] = useCustomSaveTweet(tweetId);
+  const [saveTweet] = useSaveTweetMutation();
   const savedTweets = useSelector(getSavedTweets);
   const [isTweetSaved, setIsTweetSaved] = useState(
     savedTweets?.includes(tweetId)
@@ -27,14 +25,6 @@ const TweetBookmarkBtn = ({ tweetId }) => {
       console.log({ error });
     }
   };
-
-  // if (isLoading) {
-  //   return (
-  //     <span className="w-8 aspect-square rounded-full bg-pink-300 flex justify-center items-center my-1.5">
-  //       <span className="loader"></span>
-  //     </span>
-  //   );
-  // }
 
   return (
     <div className="text-neutral-500 hover:text-neutral-700 p-1 rounded-full">
