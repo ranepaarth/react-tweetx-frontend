@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { MdAdd, MdOutlineCheck } from "react-icons/md";
 import { useSelector } from "react-redux";
@@ -7,28 +7,27 @@ import {
   useUnFollowUserMutation,
 } from "../../features/api/usersApiSlice";
 import { getCurrentUser } from "../../features/slice/usersSlice";
-import useCustomIsFollowing from "../../hooks/useCustomIsFollowing";
 import FollowUserToast from "../ToastComponent/FollowUserToast";
 import UnfollowUserToast from "../ToastComponent/UnfollowUserToast";
+import { isFollowingUser } from "../../utils/isFollowing";
 
 const UserButton = ({ userId }) => {
   const currentUser = useSelector(getCurrentUser);
-  const [isFollowing, setIsFollowing] = useCustomIsFollowing(
-    currentUser,
-    userId
+  const [isFollowing, setIsFollowing] = useState(
+    isFollowingUser(currentUser, userId)
   );
 
-  const [followUser, { isLoading: isLoadingToFollow }] =
+  const [followUser] =
     useFollowUserMutation();
-  const [unFollowUser, { isLoading: isLoadingToUnfollow }] =
+  const [unFollowUser] =
     useUnFollowUserMutation();
 
   const handleFollowUser = async () => {
     try {
+      setIsFollowing(true);
       toast.custom((t) => (
         <FollowUserToast t={t} followUser={followUser} userId={userId} />
       ));
-      setIsFollowing(true);
     } catch (error) {
       console.log(error);
     }
@@ -48,14 +47,6 @@ const UserButton = ({ userId }) => {
       console.log(error);
     }
   };
-
-  if (isLoadingToUnfollow || isLoadingToFollow) {
-    return (
-      <button className="user-button w-16 flex justify-center">
-        <span className="loader"></span>
-      </button>
-    );
-  }
 
   return (
     currentUser?._id !== userId &&
@@ -78,58 +69,3 @@ const UserButton = ({ userId }) => {
 };
 
 export default UserButton;
-
-{
-  /*<button onClick={() => handleFollowUser(userId)} className="user-button">
-        {isFollowing ? (
-          <>
-            <span>
-              <MdOutlineCheck />
-            </span>
-            <span>Following</span>
-          </>
-        ) : (
-          <>
-            <span>
-              <MdAdd />
-            </span>
-            <span>Follow</span>
-          </>
-        )}
-      </button> */
-}
-
-{
-  /*  const handleFollowUser = async (userId) => {
-    try {
-      isFollowing
-        ? toast.custom(
-            (t) => (
-              <UnfollowUserToast
-                userId={userId}
-                t={t}
-                // setIsLoading={setIsLoading}
-              />
-            ),
-            {
-              duration: 1000,
-            }
-          )
-        : toast.custom(
-            (t) => (
-              <FollowUserToast
-                userId={userId}
-                t={t}
-                // setIsLoading={setIsLoading}
-              />
-            ),
-            {
-              duration: 1000,
-            }
-          );
-    } catch (error) {
-      console.log(error);
-    }
-  };
- */
-}

@@ -9,8 +9,8 @@ const UnfollowUserToast = ({ userId, t, unFollowUser, setIsFollowing }) => {
 
   const handleUnFollow = async () => {
     try {
-      await unFollowUser(userId);
       setIsFollowing(false);
+      await unFollowUser(userId);
       toast.dismiss(t.id);
     } catch (error) {
       console.log(error);
